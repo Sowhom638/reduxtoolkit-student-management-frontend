@@ -17,11 +17,11 @@ const EditStudent = () => {
   useEffect(() => {
     dispatch(fetchStudents());
   });
+  const foundedStudent = students?.students?.find(
+    (student) => student._id == studentId
+  );
 
   useEffect(() => {
-    const foundedStudent = students?.students?.find(
-      (student) => student._id == studentId
-    );
     if (foundedStudent) {
       setStdntName(foundedStudent?.name || "");
       setStdntAge(foundedStudent?.age || 0);
@@ -32,16 +32,19 @@ const EditStudent = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(
-      updateStudentAsync({studentId, studentData: {
-        name: stdntName,
-        age: Number(stdntAge),
-        gender: stdntGender,
-        marks: Number(stdntMarks),
-        attendance: Number(stdntAttendance),
-        grade: stdntGrade,
-      }})
+      updateStudentAsync({
+        studentId,
+        studentData: {
+          name: stdntName,
+          age: Number(stdntAge),
+          gender: stdntGender,
+          marks: Number(stdntMarks),
+          attendance: Number(stdntAttendance),
+          grade: stdntGrade,
+        },
+      })
     );
-    navigate(`/studentDetails/${studentId}`)
+    navigate(`/studentDetails/${studentId}`);
   };
   return (
     <>
@@ -81,7 +84,7 @@ const EditStudent = () => {
             type="radio"
             value="Male"
             onChange={(e) => setStdntGender(e.target.value)}
-            checked={stdntGender==="Male"}
+            checked={stdntGender === "Male"}
           />
           Male{" "}
           <input
@@ -90,7 +93,7 @@ const EditStudent = () => {
             type="radio"
             value="Female"
             onChange={(e) => setStdntGender(e.target.value)}
-            checked={stdntGender==="Female"}
+            checked={stdntGender === "Female"}
           />
           Female
         </div>
