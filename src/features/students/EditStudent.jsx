@@ -27,7 +27,7 @@ const EditStudent = () => {
       setStdntAge(foundedStudent?.age || 0);
       setStdntGrade(foundedStudent?.grade || "");
     }
-  }, [students?.students]);
+  }, [students, studentId]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
